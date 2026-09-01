@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
@@ -103,14 +102,13 @@ button{font:inherit;color:inherit}
 /* ---------- lista ---------- */
 #lista{padding:8px 0 24px}
 .letra{position:sticky;top:0;z-index:2;background:var(--fundo);font-size:12px;font-weight:700;color:var(--cinza);padding:18px 12px 8px;letter-spacing:.06em;text-transform:uppercase}
-.registo{display:grid;grid-template-columns:28px 1fr auto;column-gap:12px;align-items:center;padding:12px 12px;border-radius:6px;cursor:pointer;position:relative}
+.registo{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center;padding:12px 12px;border-radius:6px;cursor:pointer;position:relative}
 .registo::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:1px;background:var(--linha);opacity:.7}
 .registo:hover,.registo.aberto{background:var(--hover)}
 .registo:hover::after,.registo.aberto::after{opacity:0}
 .tag{display:inline-block;font-size:12px;font-weight:600;color:var(--cinza);background:var(--sup);padding:2px 8px;border-radius:999px;margin-left:10px;white-space:nowrap}
 .registo:hover .tag{background:var(--sup2);color:var(--tinta)}
 .registo:focus-visible{outline:none;box-shadow:inset 0 0 0 2px var(--tinta)}
-.num{font-size:14px;color:var(--cinza);font-variant-numeric:tabular-nums;text-align:right}
 .titulo{font-size:16px;font-weight:500;line-height:1.3;text-wrap:pretty;color:var(--tinta)}
 .meta{font-size:14px;color:var(--cinza);margin-top:2px;display:flex;flex-wrap:wrap;align-items:center;row-gap:4px}
 .registo:hover .meta{color:var(--tinta)}
@@ -121,6 +119,7 @@ button{font:inherit;color:inherit}
 .duv{display:inline-block;font-size:11px;font-weight:700;color:#1A1608;background:var(--ocre);padding:1px 7px;margin-left:8px;vertical-align:2px;border-radius:999px}
 .detalhe{grid-column:2/-1;display:none;margin:10px 0 4px;font-size:14px}
 .registo.aberto .detalhe{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px}
+.detalhe,.acoes{grid-column:1/-1}
 .detalhe dt{color:var(--cinza);margin:0}
 .detalhe dd{margin:0;text-wrap:pretty}
 .detalhe .cor{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
@@ -227,8 +226,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--tinta)}
   .filtros.tudo{flex-wrap:wrap}
   #fGenero .opcao:nth-child(-n+9){display:inline-flex}
   #lista{margin:0 -8px}
-  .registo{grid-template-columns:1fr auto;column-gap:12px;padding:10px 8px}
-  .num{display:none}
+  .registo{padding:10px 8px}
   .detalhe,.acoes{grid-column:1/-1}
   .colunas{grid-template-columns:1fr}
   .prateleira{padding:16px;margin:0 -8px 12px}
@@ -268,7 +266,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--tinta)}
 /* ===== A ÚNICA COISA A PREENCHER =====
    Supabase → Project Settings → API                                    */
 const SUPABASE_URL  = 'https://hwgmoqwcvfwnizbgssgi.supabase.co';
-const SUPABASE_ANON = 'sb_publishable_HCbtI1zcNFR1h-sGw_LjMg_3QYou267';   /* chave "anon public" — pode ser pública */
+const SUPABASE_ANON = 'sb_publishable_HCbtI1zcNFR1h-sGw_LjMg_3QYou267';   
 </script>
 <style>
 /* enquanto não há sessão, só se vê a porta */
@@ -537,8 +535,7 @@ function registo(l, i){
   el.tabIndex = 0;
   el.setAttribute('aria-expanded','false');
   el.innerHTML =
-    `<div class="num">${i}</div>
-     <div>
+    `<div>
        <div class="titulo">${esc(l.t)}${l.st==='por-confirmar' ? '<span class="duv">por confirmar</span>' : ''}</div>
        <div class="meta">${esc(l.a || 'sem autor')}${l.ed ? `<span class="ed">${esc(l.ed)}</span>` : ''}${l.g && l.g!=='Por confirmar' ? `<span class="tag">${esc(l.g)}</span>` : ''}</div>
        <dl class="detalhe">
